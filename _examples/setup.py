@@ -1,6 +1,7 @@
 import os
 import base64
 import requests
+from distutils.dir_util import copy_tree
 
 ROOT_PATH = ".tmp/"
 MAIN_REPO = "https://api.github.com/repos/jacopo-degattis/ftext/contents/"
@@ -76,8 +77,6 @@ def download_resource(resource, library):
         'file': handle_file
     }
     
-    print(type(resource), library)
-    
     return mapping[resource['type']](resource, library)
 
 def download_extension(index, extensions):
@@ -97,8 +96,8 @@ def download_extension(index, extensions):
     return extension_name
 
 def push_inside_template(extension_name, template_folder="./"):
-    pass
-    
+    # NOTE: in case of 'example' template_folder is equal to './template-folder'
+    copy_tree(f".tmp/{extension_name}", template_folder)
 
 if __name__ == "__main__":
 
@@ -121,7 +120,9 @@ if __name__ == "__main__":
     if not os.path.isdir(ROOT_PATH + extensions[choice-2]['name']):
         os.mkdir(ROOT_PATH + extensions[choice-2]['name'])
 
-    download_extension(choice, extensions)
+    extension = download_extension(choice, extensions)
+
+    push_inside_template(extension, "./template-folder")
 
     exit(0)
 
