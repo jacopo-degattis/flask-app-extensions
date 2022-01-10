@@ -2,6 +2,7 @@
 
 import os
 import base64
+import shutil
 import requests
 from distutils.dir_util import copy_tree
 
@@ -100,6 +101,7 @@ def download_extension(index, extensions):
 def push_inside_template(extension_name, template_folder="./"):
     # NOTE: in case of 'example' template_folder is equal to './template-folder'
     copy_tree(f".tmp/{extension_name}", template_folder)
+    shutil.rmtree(".tmp")
 
 if __name__ == "__main__":
 
