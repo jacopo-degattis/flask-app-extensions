@@ -20,9 +20,11 @@ def list_extensions():
     json_content = response.json()
 
     
+    # NOTE: folder starting with '_' will be ignored by CLI
+
     index = 1
     for item in json_content:
-        if item['type'] == 'dir':
+        if item['type'] == 'dir' and not item['name'].startswith("_"):
             print(f"  {index}) {item['name']}")
             index += 1
 
@@ -47,5 +49,9 @@ if __name__ == "__main__":
     if choice > len(extensions) or choice < 0:
         print("ERROR: Invalid extensions index provided")
         exit(1)
+
+    download_extension(choice, extensions)
+
+    exit(0)
 
     
