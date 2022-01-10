@@ -94,6 +94,12 @@ def download_extension(index, extensions):
     for resource in data:
         download_resource(resource, extension_name)
 
+    return extension_name
+
+def push_inside_template(extension_name, template_folder="./"):
+    pass
+    
+
 if __name__ == "__main__":
 
     if not os.environ.get("GIT_USER") or not os.environ.get("GIT_TOKEN"):
